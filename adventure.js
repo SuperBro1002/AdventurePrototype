@@ -45,7 +45,7 @@ class AdventureScene extends Phaser.Scene {
                 if (this.scale.isFullscreen) {
                     this.scale.stopFullscreen();
                 } else {
-                    tehis.scale.startFullscreen();
+                    this.scale.startFullscreen();
                 }
             });
 
@@ -63,7 +63,7 @@ class AdventureScene extends Phaser.Scene {
         });
 
         //Shows name on mouseover
-        let temp = this.add.text(x - 40, y - 45, message2)
+        let temp = this.add.text(x - 40, y - 40, message2)
             .setStyle({fontSize: 40});
         this.tweens.add({
             targets: temp,
