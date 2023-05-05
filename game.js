@@ -118,7 +118,7 @@ class Demo2 extends AdventureScene {
                     this.showMessage("The North Door");
             })
             .on('pointerdown', () => {
-                    this.gotoScene('demo2');
+                    this.gotoScene('demo3');
             })
 
         let rightDoor = this.add.text(this.w * 0.5, 980, "🚪")
@@ -128,7 +128,7 @@ class Demo2 extends AdventureScene {
                     this.showMessage("The South Door"); 
             })
             .on('pointerdown', () => {
-                    this.gotoScene('demo2');
+                    this.gotoScene('demo5');
             })
             
         let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
