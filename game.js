@@ -25,7 +25,7 @@ class Demo1 extends AdventureScene {
                     this.gotoScene('demo2');
                 }
             })
-            
+            //test commit
         let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
             .setFontSize(this.s * 2)
             .setInteractive();
