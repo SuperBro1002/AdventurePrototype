@@ -45,7 +45,7 @@ class AdventureScene extends Phaser.Scene {
                 if (this.scale.isFullscreen) {
                     this.scale.stopFullscreen();
                 } else {
-                    this.scale.startFullscreen();
+                    tehis.scale.startFullscreen();
                 }
             });
 
