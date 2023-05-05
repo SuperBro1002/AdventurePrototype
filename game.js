@@ -5,54 +5,47 @@ class Demo1 extends AdventureScene {
 
     onEnter() {
 
-        let clip = this.add.text(this.w * 0.3, this.w * 0.3, "📎 paperclip")
+        let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
             .setFontSize(this.s * 2)
             .setInteractive()
-            .on('pointerover', () => this.showMessage("Metal, bent."))
+            .on('pointerover', () => this.showMessage("That's me."))
             .on('pointerdown', () => {
-                this.showMessage("No touching!");
-                this.shake(clip);
-                // this.tweens.add({
-                //     targets: clip,
-                //     x: '+=' + this.s,
-                //     repeat: 2,
-                //     yoyo: true,
-                //     ease: 'Sine.inOut',
-                //     duration: 100
-                // });
+                this.showMessage("Cut that out!");
+                this.shake(player);
             });
 
-        let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
+        let wrench = this.add.text(this.w * 0.5, this.w * 0.1, "🔧")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("It's a nice key.")
+                this.showMessage("This could be helpful.","Example",wrench.x,wrench.y)
             })
             .on('pointerdown', () => {
-                this.showMessage("You pick up the key.");
-                this.gainItem('key');
+                this.showMessage("You pick up the wrench.");
+                this.gainItem('Wrench');
                 this.tweens.add({
-                    targets: key,
+                    targets: wrench,
                     y: `-=${2 * this.s}`,
                     alpha: { from: 1, to: 0 },
                     duration: 500,
-                    onComplete: () => key.destroy()
+                    onComplete: () => wrench.destroy()
                 });
             })
+
 
         let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪 locked door")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                if (this.hasItem("key")) {
+                if (this.hasItem("Wrench")) {
                     this.showMessage("You've got the key for this door.");
                 } else {
                     this.showMessage("It's locked. Can you find a key?");
                 }
             })
             .on('pointerdown', () => {
-                if (this.hasItem("key")) {
-                    this.loseItem("key");
+                if (this.hasItem("Wrench")) {
+                    this.loseItem("Wrench");
                     this.showMessage("*squeak*");
                     door.setText("🚪 unlocked door");
                     this.gotoScene('demo2');

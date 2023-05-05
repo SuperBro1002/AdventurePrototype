@@ -53,14 +53,25 @@ class AdventureScene extends Phaser.Scene {
 
     }
 
-    showMessage(message) {
-        this.messageBox.setText(message);
+    showMessage(message1, message2, x, y) {
+        this.messageBox.setText(message1);
         this.tweens.add({
             targets: this.messageBox,
             alpha: { from: 1, to: 0 },
             easing: 'Quintic.in',
             duration: 4 * this.transitionDuration
         });
+
+        //Shows name on mouseover
+        let temp = this.add.text(x - 40, y - 45, message2)
+            .setStyle({fontSize: 40});
+        this.tweens.add({
+            targets: temp,
+            alpha: { from: 1, to: 0 },
+            easing: 'Quintic.in',
+            duration: this.transitionDuration
+        });
+
     }
 
     updateInventory() {
@@ -148,6 +159,7 @@ class AdventureScene extends Phaser.Scene {
         console.warn('This AdventureScene did not implement onEnter():', this.constructor.name);
     }
 
+    //Custom object tween shake
     shake(item) {
         this.tweens.add({
             targets: item,
@@ -158,5 +170,4 @@ class AdventureScene extends Phaser.Scene {
             duration: 100
         });
     }
-
 }
