@@ -11,16 +11,17 @@ class Demo1 extends AdventureScene {
         let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
             .setFontSize(this.s * 2)
             .setInteractive();
-            
             this.showStuff(player,"That's me.", "Cut that out!");
 
         let wrench = this.add.text(this.w * 0.5, this.w * 0.1, "🔧")
             .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
+            .setInteractive();
+            this.showUsable(wrench, "Wrench");
+            
+            wrench.on('pointerover', () => {
                 this.showMessage("This could be helpful.","Example",wrench.x,wrench.y)
-            })
-            .on('pointerdown', () => {
+            });
+            wrench.on('pointerdown', () => {
                 this.showMessage("You pick up the wrench.");
                 this.gainItem('Wrench');
                 this.tweens.add({
@@ -30,6 +31,9 @@ class Demo1 extends AdventureScene {
                     duration: 500,
                     onComplete: () => wrench.destroy()
                 });
+                    
+             
+                
             })
 
 
