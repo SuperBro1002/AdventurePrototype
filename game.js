@@ -1,6 +1,6 @@
 class Demo1 extends AdventureScene {
     constructor() {
-        super("demo1", "First Room");
+        super("demo1", "Starting Room");
     }
 
     onEnter() {
@@ -11,14 +11,15 @@ class Demo1 extends AdventureScene {
             .on('pointerover', () => this.showMessage("Metal, bent."))
             .on('pointerdown', () => {
                 this.showMessage("No touching!");
-                this.tweens.add({
-                    targets: clip,
-                    x: '+=' + this.s,
-                    repeat: 2,
-                    yoyo: true,
-                    ease: 'Sine.inOut',
-                    duration: 100
-                });
+                this.shake(clip);
+                // this.tweens.add({
+                //     targets: clip,
+                //     x: '+=' + this.s,
+                //     repeat: 2,
+                //     yoyo: true,
+                //     ease: 'Sine.inOut',
+                //     duration: 100
+                // });
             });
 
         let key = this.add.text(this.w * 0.5, this.w * 0.1, "🔑 key")
