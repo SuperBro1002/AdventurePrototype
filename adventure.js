@@ -63,7 +63,7 @@ class AdventureScene extends Phaser.Scene {
         });
 
         //Shows name on mouseover
-        let temp = this.add.text(x - 40, y - 40, message2)
+        let temp = this.add.text(x - 50, y - 50, message2)
             .setStyle({fontSize: 40});
         this.tweens.add({
             targets: temp,
@@ -168,6 +168,14 @@ class AdventureScene extends Phaser.Scene {
             yoyo: true,
             ease: 'Sine.inOut',
             duration: 100
+        });
+    }
+
+    showStuff(item, over, click) {
+        item.on('pointerover', () => this.showMessage(over))
+        .on('pointerdown', () => {
+            this.showMessage(click);
+            this.shake(item);
         });
     }
 }
