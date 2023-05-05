@@ -171,10 +171,6 @@ class AdventureScene extends Phaser.Scene {
         });
     }
 
-    showUsable(item, over) {
-        item.on('pointerover', () => this.showMessage(over, item.x, item.y))
-    }
-
     showStuff(item, over, click) {
         item.on('pointerover', () => this.showMessage(over, item.x, item.y))
         .on('pointerdown', () => {

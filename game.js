@@ -6,7 +6,7 @@ class Demo1 extends AdventureScene {
     onEnter() {
 
         let vent = this.add.rectangle(1040,70,50,50, 0x5f5f5f)
-            //.on('pointerover', () => this,showMessage);
+            .on('pointerover', () => this.showMessage);
 
         let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
             .setFontSize(this.s * 2)
@@ -16,7 +16,6 @@ class Demo1 extends AdventureScene {
         let wrench = this.add.text(this.w * 0.5, this.w * 0.1, "🔧")
             .setFontSize(this.s * 2)
             .setInteractive();
-            this.showUsable(wrench, "Wrench");
             
             wrench.on('pointerover', () => {
                 this.showMessage("This could be helpful.","Example",wrench.x,wrench.y)
@@ -31,9 +30,7 @@ class Demo1 extends AdventureScene {
                     duration: 500,
                     onComplete: () => wrench.destroy()
                 });
-                    
-             
-                
+        
             })
 
 
