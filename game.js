@@ -21,8 +21,7 @@ class Demo1 extends AdventureScene {
             .on('pointerdown', () => {
                 if (this.hasItem("Wrench")) {
                     this.loseItem("Wrench");
-                    this.showMessage("*squeak*");
-                    door.setText("🚪 unlocked door");
+                    this.showMessage("*squeak squeak*");
                     this.gotoScene('demo2');
                 }
             })
