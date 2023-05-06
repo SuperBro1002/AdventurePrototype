@@ -2,8 +2,8 @@ let hasWrench = false;
 let hasKey = false;
 let hasLight = false;
 let hasHammer = false;
-let ifVent = false; 
-let rDoor = false; 
+let ifVent = false;
+let rDoor = false;
 let lDoor = false;
 let power = false;
 let sDoor = false;
@@ -123,7 +123,7 @@ class Demo2 extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("The North Door");
+                this.showMessage("The closet door.");
             })
             .on('pointerdown', () => {
                 this.gotoScene('demo3');
@@ -134,11 +134,16 @@ class Demo2 extends AdventureScene {
             .setInteractive();
         rightDoor.setColor(0xffffff);
         rightDoor.on('pointerover', () => {
-            this.showMessage("The South Door");
+            if (hasLight == false) {
+                this.showMessage("You look inside, but it's too dark to see anything. You'll need something to light it up.");
+            }
+            else {
+                this.showMessage("You'll be able to look around the room with the flashlight.");
+            }
         })
-            .on('pointerdown', () => {
-                this.gotoScene('demo5');
-            })
+        .on('pointerdown', () => {
+            this.gotoScene('demo5');
+        })
 
         let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
             .setInteractive()
@@ -173,37 +178,32 @@ class Demo3 extends AdventureScene {
 
 
         if (sDoor == false) {
-        let secretDoor = this.add.text(1230, 305, "📦")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                if (sDoor == false) {
-                this.showMessage("Something's here!");
-                this.shake(secretDoor);
-                }
-            })
-            .on('pointerdown', () => {
-                secretDoor.setText("🚪");
-                sDoor = true;
-                this.gotoScene('demo4');
-            })
-        } else if (sDoor == true){
+            let secretDoor = this.add.text(1230, 305, "📦")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    if (sDoor == false) {
+                        this.showMessage("Something's here!");
+                        this.shake(secretDoor);
+                    }
+                })
+                .on('pointerdown', () => {
+                    secretDoor.setText("🚪");
+                    sDoor = true;
+                    this.gotoScene('demo4');
+                })
+        } else if (sDoor == true) {
             let secretDoor = this.add.text(1230, 305, "🚪")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("It's a secret door!");
-            })
-            .on('pointerdown', () => {
-              this.gotoScene('demo4');
-            })
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("It's a secret door!");
+                })
+                .on('pointerdown', () => {
+                    this.gotoScene('demo4');
+                })
 
         }
-
-
-
-
-
 
         let box = this.add.text(1020, 505, "📦")
             .setFontSize(this.s * 2)
@@ -242,17 +242,88 @@ class Demo4 extends AdventureScene {
     constructor() {
         super("demo4", "Basement");
     }
+
+    onEnter() {
+
+
+        let Door = this.add.text(300, 980, "🚪")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Back to the closet.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('demo3');
+            })
+
+        let book1 = this.add.text(200, 505, "📙")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("It's an orange book.");
+            })
+        let flashlight = this.add.text(370, 330, "🔦")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("It's a flashlight.");
+            })
+            .on('pointerdown', () => {
+                this.gainItem('flashlight');
+                this.showMessage("You pick up the flashlight.");
+                hasLight = true;
+                this.tweens.add({
+                    targets: flashlight,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => flashlight.destroy()
+                });
+            })
+        let book2 = this.add.text(660, 705, "📗")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("It's a green book.");
+            })
+        let pc = this.add.text(1220, 555, "💻")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("It's a laptop. It won't turn on.");
+            })
+        let bag = this.add.text(1020, 860, "💼")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("It's an empty bag.");
+            })
+        let book3 = this.add.text(1320, 920, "📘")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("It's a blue book.");
+            })
+    }
 }
 
 class Demo5 extends AdventureScene {
     constructor() {
         super("demo5", "Dark Room");
     }
+
+    onEnter() {
+
+    }
 }
 
 class Demo6 extends AdventureScene {
     constructor() {
         super("demo6", "Elevator");
+    }
+
+    onEnter() {
+
     }
 }
 
