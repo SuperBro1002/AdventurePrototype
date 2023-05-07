@@ -18,7 +18,7 @@ class Demo1 extends AdventureScene {
             .setInteractive()
             .on('pointerover', () => {
                 if (this.hasItem("Wrench")) {
-                    this.showMessage("I can open this with the wrench.");
+                    this.showMessage("I can open this vent with the wrench.");
                 } else if (ifVent == true) {
                     this.showMessage("The vent is open.");
                 } else if (hasWrench == false) {
@@ -63,43 +63,43 @@ class Demo1 extends AdventureScene {
         }
 
 
-        let key = this.add.text(this.w * 0.3, this.w * 0.2, "🔑")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("This could be helpful.", "Example", key.x, key.y)
-            });
-        key.on('pointerdown', () => {
-            this.showMessage("You pick up the key.");
-            this.gainItem('Key');
-            this.tweens.add({
-                targets: key,
-                y: `-=${2 * this.s}`,
-                alpha: { from: 1, to: 0 },
-                duration: 500,
-                onComplete: () => key.destroy()
-            });
-        })
+        // let key = this.add.text(this.w * 0.3, this.w * 0.2, "🔑")
+        //     .setFontSize(this.s * 2)
+        //     .setInteractive()
+        //     .on('pointerover', () => {
+        //         this.showMessage("This could be helpful.", "Example", key.x, key.y)
+        //     });
+        // key.on('pointerdown', () => {
+        //     this.showMessage("You pick up the key.");
+        //     this.gainItem('Key');
+        //     this.tweens.add({
+        //         targets: key,
+        //         y: `-=${2 * this.s}`,
+        //         alpha: { from: 1, to: 0 },
+        //         duration: 500,
+        //         onComplete: () => key.destroy()
+        //     });
+        // })
 
 
-        let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                if (this.hasItem("Wrench")) {
-                    this.showMessage("You've got the key for this door.");
-                } else {
-                    this.showMessage("It's locked. Can you find a key?");
-                }
-            })
-            .on('pointerdown', () => {
-                if (this.hasItem("Wrench")) {
-                    this.loseItem("Wrench");
-                    this.showMessage("*squeak*");
-                    door.setText("🚪 unlocked door");
-                    this.gotoScene('demo2');
-                }
-            })
+        // let door = this.add.text(this.w * 0.1, this.w * 0.15, "🚪")
+        //     .setFontSize(this.s * 2)
+        //     .setInteractive()
+        //     .on('pointerover', () => {
+        //         if (this.hasItem("Wrench")) {
+        //             this.showMessage("You've got the key for this door.");
+        //         } else {
+        //             this.showMessage("It's locked. Can you find a key?");
+        //         }
+        //     })
+        //     .on('pointerdown', () => {
+        //         if (this.hasItem("Wrench")) {
+        //             this.loseItem("Wrench");
+        //             this.showMessage("*squeak*");
+        //             door.setText("🚪 unlocked door");
+        //             this.gotoScene('demo2');
+        //         }
+        //     })
 
     }
 }
@@ -134,16 +134,31 @@ class Demo2 extends AdventureScene {
             .setInteractive();
         rightDoor.setColor(0xffffff);
         rightDoor.on('pointerover', () => {
-            if (hasLight == false) {
+            if (this.hasItem('flashlight')) {
                 this.showMessage("You look inside, but it's too dark to see anything. You'll need something to light it up.");
             }
             else {
                 this.showMessage("You'll be able to look around the room with the flashlight.");
             }
         })
-        .on('pointerdown', () => {
-            this.gotoScene('demo5');
-        })
+            .on('pointerdown', () => {
+                if (this.hasItem('flashlight')) {
+                    this.gotoScene('demo5');
+                }
+                else {
+                    this.shake(rightDoor);
+                }
+            })
+
+        let elevator = this.add.text(this.w * 0.5, 50, "🚪")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("An elevator");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('demo6');
+            })
 
         let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
             .setInteractive()
@@ -242,10 +257,7 @@ class Demo4 extends AdventureScene {
     constructor() {
         super("demo4", "Basement");
     }
-
     onEnter() {
-
-
         let Door = this.add.text(300, 980, "🚪")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -313,6 +325,51 @@ class Demo5 extends AdventureScene {
     }
 
     onEnter() {
+        let Door = this.add.text(this.w * 0.3, 80, "🚪")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Back to Central Room");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('demo2');
+            })
+
+        let plug = this.add.text(660, 705, "🔌")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("A plug.", "Plug", plug.x, plug.y);
+            })
+            .on('pointerdown', () => {
+                this.gainItem('plug');
+                this.showMessage("You pick up the plug.");
+                this.tweens.add({
+                    targets: plug,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => plug.destroy()
+                });
+            })
+        this.cameras.main.fadeFrom(6000, 0, 0, 0, true);
+
+        let outlet = this.add.rectangle(720, 540, 20, 40, 0x000000)
+            .setInteractive()
+            .on('pointerover', () => {
+                if (this.hasItem('plug') == false && power == false) {
+                    this.showStuff(outlet, "It's an empty outlet.", "I need to plug something in.");
+                }
+            })
+            .on('pointerdown', () => {
+                if (this.hasItem('plug')) {
+                    this.loseItem('plug');
+                    power = true;
+                    outlet.x = 4000;
+                    outlet.y = 4000;
+                    this.showMessage("You put the plug in the outlet. The power turns on!");
+                }
+            });
 
     }
 }
