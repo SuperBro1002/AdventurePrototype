@@ -110,6 +110,11 @@ class Demo2 extends AdventureScene {
         super("demo2", "Central Room");
     }
     onEnter() {
+        let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
+            .setFontSize(this.s * 2)
+            .setInteractive();
+        this.showStuff(player, "That's me.", "Cut that out!");
+
         let vent = this.add.rectangle(70, 980, 50, 50, 0x5f5f5f)
             .setInteractive()
             .on('pointerover', () => {
@@ -150,14 +155,24 @@ class Demo2 extends AdventureScene {
                 }
             })
 
-        let elevator = this.add.text(this.w * 0.5, 50, "🚪")
+        let elevator = this.add.text(this.w * 0.7, 540, "🚪")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("An elevator");
+                if (power == true) {
+                    this.showMessage("An elevator, the power has been turned on.");
+                }
+                else {
+                    this.showMessage("An elevator.")
+                }
             })
             .on('pointerdown', () => {
-                this.gotoScene('demo6');
+                if (power == true) {
+                    this.gotoScene('demo6');
+                }
+                else {
+                    this.showMessage("The power is off, you'll need to turn it on.")
+                }
             })
 
         let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
@@ -181,6 +196,11 @@ class Demo3 extends AdventureScene {
         super("demo3", "Closet");
     }
     onEnter() {
+        let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
+            .setFontSize(this.s * 2)
+            .setInteractive();
+        this.showStuff(player, "That's me.", "Cut that out!");
+
         let Door = this.add.text(this.w * 0.5, 980, "🚪")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -258,6 +278,11 @@ class Demo4 extends AdventureScene {
         super("demo4", "Basement");
     }
     onEnter() {
+        let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
+            .setFontSize(this.s * 2)
+            .setInteractive();
+        this.showStuff(player, "That's me.", "Cut that out!");
+
         let Door = this.add.text(300, 980, "🚪")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -325,6 +350,11 @@ class Demo5 extends AdventureScene {
     }
 
     onEnter() {
+        let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
+            .setFontSize(this.s * 2)
+            .setInteractive();
+        this.showStuff(player, "That's me.", "Cut that out!");
+
         let Door = this.add.text(this.w * 0.3, 80, "🚪")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -380,6 +410,10 @@ class Demo6 extends AdventureScene {
     }
 
     onEnter() {
+        let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
+            .setFontSize(this.s * 2)
+            .setInteractive();
+        this.showStuff(player, "That's me.", "Cut that out!");
 
     }
 }
