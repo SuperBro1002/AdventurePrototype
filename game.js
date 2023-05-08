@@ -30,7 +30,7 @@ class Demo1 extends AdventureScene {
                     this.loseItem("Wrench");
                     ifVent = true;
                     this.showMessage("*squeak squeak*");
-                    this.gotoScene('demo2');
+                    this.gotoScene('demo6');
                 }
             })
 
@@ -410,11 +410,34 @@ class Demo6 extends AdventureScene {
     }
 
     onEnter() {
+        let Door = this.add.text(720, -50, "🚪")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Escape.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('outro');
+            })
+
         let player = this.add.text(this.w * 0.3, this.w * 0.3, "👾")
             .setFontSize(this.s * 2)
             .setInteractive();
         this.showStuff(player, "That's me.", "Cut that out!");
 
+        let button = this.add.circle(720, 540, 25, 0x000000)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("It's a button.")
+            })
+            .on('pointerdown', () => {
+                this.showMessage("The elevator starts to move.");
+                this.cameras.main.shake(2000, 0.01);
+
+                this.time.delayedCall(3000, () => {
+                    Door.setY(30);
+                });
+            });
     }
 }
 
