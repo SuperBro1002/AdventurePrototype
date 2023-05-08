@@ -1,7 +1,6 @@
 let hasWrench = false;
 let hasKey = false;
 let hasLight = false;
-let hasHammer = false;
 let ifVent = false;
 let rDoor = false;
 let lDoor = false;
@@ -30,7 +29,7 @@ class Demo1 extends AdventureScene {
                     this.loseItem("Wrench");
                     ifVent = true;
                     this.showMessage("*squeak squeak*");
-                    this.gotoScene('demo6');
+                    this.gotoScene('demo2');
                 }
             })
 
@@ -139,7 +138,7 @@ class Demo2 extends AdventureScene {
             .setInteractive();
         rightDoor.setColor(0xffffff);
         rightDoor.on('pointerover', () => {
-            if (this.hasItem('flashlight')) {
+            if (this.hasItem('flashlight') == false) {
                 this.showMessage("You look inside, but it's too dark to see anything. You'll need something to light it up.");
             }
             else {
@@ -175,19 +174,19 @@ class Demo2 extends AdventureScene {
                 }
             })
 
-        let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage('*giggles*');
-                this.tweens.add({
-                    targets: finish,
-                    x: this.s + (this.h - 2 * this.s) * Math.random(),
-                    y: this.s + (this.h - 2 * this.s) * Math.random(),
-                    ease: 'Sine.inOut',
-                    duration: 500
-                });
-            })
-            .on('pointerdown', () => this.gotoScene('outro'));
+        // let finish = this.add.text(this.w * 0.6, this.w * 0.2, '(finish the game)')
+        //     .setInteractive()
+        //     .on('pointerover', () => {
+        //         this.showMessage('*giggles*');
+        //         this.tweens.add({
+        //             targets: finish,
+        //             x: this.s + (this.h - 2 * this.s) * Math.random(),
+        //             y: this.s + (this.h - 2 * this.s) * Math.random(),
+        //             ease: 'Sine.inOut',
+        //             duration: 500
+        //         });
+        //     })
+        //     .on('pointerdown', () => this.gotoScene('outro'));
     }
 }
 
@@ -436,6 +435,7 @@ class Demo6 extends AdventureScene {
 
                 this.time.delayedCall(3000, () => {
                     Door.setY(30);
+                    button.setY(-50);
                 });
             });
     }
@@ -446,8 +446,8 @@ class Intro extends Phaser.Scene {
         super('intro')
     }
     create() {
-        this.add.text(50, 50, "Adventure awaits!").setFontSize(50);
-        this.add.text(50, 100, "Click anywhere to begin.").setFontSize(20);
+        this.add.text(50, 50, "You sleep peacefully, unaware that you've been kidnapped and locked up.").setFontSize(40);
+        this.add.text(50, 100, "Click anywhere to wake up.").setFontSize(20);
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0, 0, 0);
             this.time.delayedCall(1000, () => this.scene.start('demo1'));
@@ -460,8 +460,8 @@ class Outro extends Phaser.Scene {
         super('outro');
     }
     create() {
-        this.add.text(50, 50, "That's all!").setFontSize(50);
-        this.add.text(50, 100, "Click anywhere to restart.").setFontSize(20);
+        this.add.text(720, 540, "YOU ESCAPED!").setFontSize(50);
+        this.add.text(735,740, "Click anywhere to restart.").setFontSize(20);
         this.input.on('pointerdown', () => this.scene.start('intro'));
     }
 }
